@@ -15,6 +15,8 @@ module.exports = function(controller, bot) {
     // import express middlewares that are present in /components/express_middleware
     var normalizedPath = require("path").join(__dirname, "express_middleware");
     require("fs").readdirSync(normalizedPath).forEach(function(file) {
+        if (file.substring(0,1) == '.')
+            return;
         require("./express_middleware/" + file)(webserver, controller);
     });
 
@@ -30,7 +32,9 @@ module.exports = function(controller, bot) {
     // import all the pre-defined routes that are present in /components/routes
     var normalizedPath = require("path").join(__dirname, "routes");
     require("fs").readdirSync(normalizedPath).forEach(function(file) {
-      require("./routes/" + file)(webserver, controller);
+        if (file.substring(0,1) == '.')
+            return;
+        require("./routes/" + file)(webserver, controller);
     });
 
     controller.webserver = webserver;

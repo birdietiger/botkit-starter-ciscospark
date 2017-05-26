@@ -60,6 +60,8 @@ require(__dirname + '/components/plugin_dashbot.js')(controller);
 
 var normalizedPath = require("path").join(__dirname, "skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  if (file.substring(0,1) == '.')
+    return;
   require("./skills/" + file)(controller);
 });
 
